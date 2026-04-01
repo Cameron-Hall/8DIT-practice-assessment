@@ -92,17 +92,19 @@ class GUI:
         self.fsl9 = Label(self.f_show, text=self.people[self.current_person].mobile_phone if self.people else "")
         self.fsl9.grid(column=3, row=4, columnspan=3, sticky=W)
 
-        self.fsb2 = Button(self.f_show, text="Previous", command=self.prev)
+        self.fsb2 = Button(self.f_show, text="Previous", command=self.prev, state=DISABLED)
         self.fsb2.grid(column=0, row=5, columnspan=2, sticky=W)
         
         self.fsl10 = Label(self.f_show, text=f"{self.current_person+1}/{len(self.people)}")
         self.fsl10.grid(column=2, row=5, columnspan=2)
 
-        self.fsb3 = Button(self.f_show, text="Next", command=self.next)
+        self.fsb3 = Button(self.f_show, text="Next", command=self.next, state=DISABLED)
         self.fsb3.grid(column=4, row=5, columnspan=2, sticky=E)
 
         self.f_input.pack()
+
         self.fie1.focus()
+        self.fib1.configure(state=DISABLED)
 
 
     def prev(self):
@@ -140,6 +142,7 @@ class GUI:
         self.fie3.delete(0, END)
         self.rbv.set(0)
         self.fie1.focus()
+        self.fib1.configure(state=NORMAL)
 
 
     def shift(self):
@@ -149,6 +152,10 @@ class GUI:
         self.fsl7.configure(text=self.people[self.current_person].age if self.people else "")
         self.fsl9.configure(text=self.people[self.current_person].mobile_phone if self.people else "")
         self.fsl10.configure(text=f"{self.current_person+1}/{len(self.people)}" if self.people else "0/0")
+
+        if len(self.people) > 1:
+            self.fsb2.configure(state=NORMAL)
+            self.fsb3.configure(state=NORMAL)
 
 
 
