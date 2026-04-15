@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 
 class Person:
     def __init__(self, first_name, last_name, age, mobile_phone):
@@ -136,7 +137,12 @@ class GUI:
 
     def add_data(self):
         """Adds data to list and clears Entry widgets and resets Radiobuttons"""
-        self.people.append(Person(self.fie1.get(), self.fie2.get(), self.fie3.get(), self.rbv.get()))
+        try:
+            age = int(self.fie3.get())
+        except ValueError:
+            messagebox.showerror("", "Age must be an integer")
+            return
+        self.people.append(Person(self.fie1.get(), self.fie2.get(), age, self.rbv.get()))
         self.fie1.delete(0, END)
         self.fie2.delete(0, END)
         self.fie3.delete(0, END)
