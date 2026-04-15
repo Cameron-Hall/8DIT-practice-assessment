@@ -138,7 +138,16 @@ class GUI:
     def add_data(self):
         """Adds data to list and clears Entry widgets and resets Radiobuttons"""
         try:
+            # only done for first name and age as last name can be empty and mobile phone owned is a boolean
+            if len(self.fie1.get()) == 0 or len(self.fie3.get()) == 0:
+                raise ValueError
+        except ValueError:
+            messagebox.showerror("", "First name and age cannot be empty")
+            return
+        try:
             age = int(self.fie3.get())
+            if len(str(age)) == 0:
+                raise ValueError
         except ValueError:
             messagebox.showerror("", "Age must be an integer")
             return
